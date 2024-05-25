@@ -11,7 +11,9 @@ router.post('/', async (req, res) => {
     res.status(400).send(error);
   }
 });
-
+router.get('/test',async(req,res)=>{
+  return res.send("test");
+})
 router.get('/', async (req, res) => {
   try {
     const invoices = await Invoice.find();
@@ -52,6 +54,15 @@ router.delete('/:id', async (req, res) => {
       return res.status(404).send();
     }
     res.send(invoice);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+router.get('/count/total', async (req, res) => {
+  try {
+    const count = await Invoice.countDocuments();
+    console.log(count)
+    res.send({ count });
   } catch (error) {
     res.status(500).send(error);
   }
